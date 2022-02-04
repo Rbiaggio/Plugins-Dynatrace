@@ -1,6 +1,6 @@
 {
   "name": "custom.remote.python.monitorar_arquivos_unix",
-  "version": "1.0.4",
+  "version": "1.0.9",
   "type": "python",
   "entity": "CUSTOM_DEVICE",
   "metricGroup": "tech.python.monitorar_arquivos_unix",

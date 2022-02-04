@@ -18,17 +18,14 @@ print('current month', currentMonth)
 print('current day', currentDay)
 print('current time', currentTime)
 
-
 def getFirstDayOfMonth(date) -> datetime:
     firstDay = datetime(date.year, date.month, 1)
     return firstDay
-
 
 def getLastDayOfMonth(date: date):
     lastDay = datetime(date.year + int(date.month / 12),
                        date.month % 12 + 1, 1) - timedelta(days=1)
     return lastDay
-
 
 def isBetweenTime(start: str, end: str) -> bool:
     if (currentTime > start) and (currentTime < end):
@@ -36,11 +33,9 @@ def isBetweenTime(start: str, end: str) -> bool:
     else:
         return False
 
-
 def isHoliday(date) -> bool:
     holiday = wd.is_holiday(date, country='BR', years=date.year)
     return holiday
-
 
 def isWeekend(date) -> bool:
     weekend = wd.is_weekend(date)
