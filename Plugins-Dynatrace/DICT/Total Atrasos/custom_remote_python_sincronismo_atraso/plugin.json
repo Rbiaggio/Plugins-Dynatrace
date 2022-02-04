@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.sincronismo_ans_dict",
+  "version": "1.03",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.confirmar.reivindicacao_atraso_ans_dict",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_sincronismo_atraso",
+    "className": "SincronismoAtraso",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Sincronismo (Atraso)"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "total_linhas_atraso_sincronismo",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Sincronismo (Atrasos)"
+      },
+      {
+        "key": "resultado_sincronismo",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "ANS DICT",
+        "title": "Sincronismo",
+        "series": [
+          {
+            "key": "total_linhas_atraso_sincronismo",
+            "displayname": "Total Atrasados",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "resultado_sincronismo",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "ANS DICT",
+      "title": "Sincronismo",
+      "series": [
+        {
+          "key": "total_linhas_atraso_sincronismo",
+          "displayname": "Total Atrasados",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "resultado_sincronismo",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Sincronismo - Status"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "total_linhas_atraso_sincronismo",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Sincronismo - Total Atrasados"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}

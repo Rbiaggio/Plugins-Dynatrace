@@ -1,0 +1,117 @@
+{
+  "name": "custom.remote.python.confirmar_reivindicacao_atraso_ans_dict",
+  "version": "1.01",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.confirmar.reivindicacao_atraso_ans_dict",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_confirmar_reivindicacao_atraso",
+    "className": "ConfirmarReivindicacaoAtraso",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Confirmar Reivindicação (Atraso)"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "total_linhas_atraso_confirmar_reivindicacao",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Confirmar Reivindicação (Atrasos)"
+      },
+      {
+        "key": "resultado_confirmar_reivindicacao",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "ANS DICT",
+        "title": "Confirmar Reivindicação",
+        "series": [
+          {
+            "key": "total_linhas_atraso_confirmar_reivindicacao",
+            "displayname": "Total Atrasados",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "resultado_confirmar_reivindicacao",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "ANS DICT",
+      "title": "Confirmar Reivindicação",
+      "series": [
+        {
+          "key": "total_linhas_atraso_confirmar_reivindicacao",
+          "displayname": "Total Atrasados",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "resultado_confirmar_reivindicacao",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Confirmar Reivindicação - Status"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "total_linhas_atraso_confirmar_reivindicacao",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Confirmar Reivindicação - Total Atrasados"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP",
+      "alert_settings": [
+        {
+          "alert_id": "custom_claim_alert",
+          "event_type": "ERROR_EVENT",
+          "event_name": "Existem Confirmações de Reivindicação em Atraso",
+          "description": "The {metricname} of {severity} is {alert_condition} the threshold of {threshold}",
+          "threshold": 0,
+          "alert_condition": "ABOVE",
+          "samples": 5,
+          "violating_samples": 1,
+          "dealerting_samples": 5
+        }
+      ]
+    }
+  ]
+}

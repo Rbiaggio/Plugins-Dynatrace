@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.integracao_standin_conta",
+  "version": "1.00",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.integracao_standin_conta",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_integracao_standin_conta",
+    "className": "IntegracaoStandinConta",
+    "install_requires": [
+    "cx-Oracle",
+    "requests>=2.6.0"
+  ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "Filas Oracle AQ - Integracao Standin > Conta"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "total_lancamentos_standin_conta",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Integracao Standin > Conta - Total"
+      },
+      {
+        "key": "state_integracao_standin_conta",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "Filas Oracle AQ",
+        "title": "Integracao Standin > Conta",
+        "series": [
+          {
+            "key": "total_lancamentos_standin_conta",
+            "displayname": "Total",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "state_integracao_standin_conta",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "Filas Oracle AQ",
+      "title": "Integracao Standin > Conta",
+      "series": [
+        {
+          "key": "total_lancamentos_standin_conta",
+          "displayname": "Total",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "state_integracao_standin_conta",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Integracao Standin > Conta - State"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "total_lancamentos_standin_conta",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Integracao Standin > Conta - Total"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}

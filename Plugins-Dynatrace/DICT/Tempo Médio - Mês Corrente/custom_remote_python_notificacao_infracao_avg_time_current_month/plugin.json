@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.notificacao_infracao_avg_time_current_month",
+  "version": "1.00",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.notificacao.infracao_avg_time_current_month",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_notificacao_infracao_avg_time_current_month",
+    "className": "NotificacaoInfracaoCurrentMonth",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Notificação Infração - Mês Corrente"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "avg_notificacao_infracao_mes_corrente",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Notificação Infração - Mês Corrente"
+      },
+      {
+        "key": "state_notificacao_infracao_mes_corrente",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "ANS DICT",
+        "title": "Notificação Infração",
+        "series": [
+          {
+            "key": "avg_notificacao_infracao_mes_corrente",
+            "displayname": "Média em Dias",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "state_notificacao_infracao_mes_corrente",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "ANS DICT",
+      "title": "Notificação Infração",
+      "series": [
+        {
+          "key": "avg_notificacao_infracao_mes_corrente",
+          "displayname": "Média em Dias",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "state_notificacao_infracao_mes_corrente",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Notificação Infração - State"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "avg_notificacao_infracao_mes_corrente",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Notificação Infração - Mês Corrente"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.confirmar_reivindica_sla_ans_dict",
+  "version": "1.01",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.confirmar.reivindica_sla_ans_dict",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_confirmar_reivindicacao_sla",
+    "className": "ConfirmarReivindicacaoSLA",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Confirmar Reivindicação (SLA)"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "sla_consolidado_confirmar_reivindicacao",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Confirmar Reivindicação (SLA)"
+      },
+      {
+        "key": "resultado_sla_consolidado_confirmar_reivindicacao",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "ANS DICT",
+        "title": "Confirmar Reivindicação",
+        "series": [
+          {
+            "key": "sla_consolidado_confirmar_reivindicacao",
+            "displayname": "Média em Minutos",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "resultado_sla_consolidado_confirmar_reivindicacao",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "ANS DICT",
+      "title": "Confirmar Reivindicação",
+      "series": [
+        {
+          "key": "sla_consolidado_confirmar_reivindicacao",
+          "displayname": "Média em Minutos",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "resultado_sla_consolidado_confirmar_reivindicacao",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Confirmar Reivindicação - Status"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "sla_consolidado_confirmar_reivindicacao",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Confirmar Reivindicação - SLA"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+      }
+  ]
+}

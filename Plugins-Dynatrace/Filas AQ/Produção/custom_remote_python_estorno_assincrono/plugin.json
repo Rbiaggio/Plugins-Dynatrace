@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.estorno_assincrono",
+  "version": "1.00",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.estorno_assincrono",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_estorno_assincrono",
+    "className": "EstornoAssincrono",
+    "install_requires": [
+    "cx-Oracle",
+    "requests>=2.6.0"
+  ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "Filas Oracle AQ - Estorno Assíncrono"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "total_lancamentos_retorno_assincrono",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Estorno Assíncrono - Total"
+      },
+      {
+        "key": "state_retorno_assincrono",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "Filas Oracle AQ",
+        "title": "Estorno Assíncrono",
+        "series": [
+          {
+            "key": "total_lancamentos_retorno_assincrono",
+            "displayname": "Total",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "state_retorno_assincrono",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "Filas Oracle AQ",
+      "title": "Estorno Assíncrono",
+      "series": [
+        {
+          "key": "total_lancamentos_retorno_assincrono",
+          "displayname": "Total",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "state_retorno_assincrono",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Estorno Assíncrono - State"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "total_lancamentos_retorno_assincrono",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Estorno Assíncrono - Total"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}

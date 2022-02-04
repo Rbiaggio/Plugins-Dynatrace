@@ -1,0 +1,117 @@
+{
+  "name": "custom.remote.python.cancelar_portabilidade_sla_ans_dict",
+  "version": "1.10",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.cancelar.portabilidade_sla_ans_dict",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_cancelar_portabilidade_sla",
+    "className": "CancelarPortabilidadeSLA",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Cancelar Portabilidade (SLA)"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "sla_consolidado_cancelar_portabilidade",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Cancelar Portabilidade (SLA)"
+      },
+      {
+        "key": "resultado_sla_consolidado_cancelar_portabilidade",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "ANS DICT",
+        "title": "Cancelar Portabilidade",
+        "series": [
+          {
+            "key": "sla_consolidado_cancelar_portabilidade",
+            "displayname": "Média em Minutos",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "resultado_sla_consolidado_cancelar_portabilidade",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "ANS DICT",
+      "title": "Cancelar Portabilidade",
+      "series": [
+        {
+          "key": "sla_consolidado_cancelar_portabilidade",
+          "displayname": "Média em Minutos",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "resultado_sla_consolidado_cancelar_portabilidade",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Cancelar Portabilidade - Status"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "sla_consolidado_cancelar_portabilidade",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Cancelar Portabilidade - SLA"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP",
+      "alert_settings": [
+        {
+          "alert_id": "custom_sla_alert",
+          "event_type": "ERROR_EVENT",
+          "event_name": "SLA acima do permitido para o Cancelamento de Portabilidade!!",
+          "description": "The {metricname} of {severity} is {alert_condition} the threshold of {threshold}",
+          "threshold": 60.0,
+          "alert_condition": "ABOVE",
+          "samples": 5,
+          "violating_samples": 1,
+          "dealerting_samples": 5
+        }
+      ]
+    }
+  ]
+}

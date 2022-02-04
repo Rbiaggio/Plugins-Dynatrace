@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.reprocessar_conta_standin",
+  "version": "1.00",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.reprocessar_conta_standin",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_reprocessar_conta_standin",
+    "className": "ReprocessarContaStandin",
+    "install_requires": [
+    "cx-Oracle",
+    "requests>=2.6.0"
+  ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "Filas Oracle AQ - Reprocessar Integração Conta > Standin"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "total_reprocessar_conta_standin",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Reprocessar Integração Conta > Standin - Total"
+      },
+      {
+        "key": "state_reprocessar_conta_standin",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "Filas Oracle AQ",
+        "title": "Reprocessar Integração Conta > Standin",
+        "series": [
+          {
+            "key": "total_reprocessar_conta_standin",
+            "displayname": "Total",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "state_reprocessar_conta_standin",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "Filas Oracle AQ",
+      "title": "Reprocessar Integração Conta > Standin",
+      "series": [
+        {
+          "key": "total_reprocessar_conta_standin",
+          "displayname": "Total",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "state_reprocessar_conta_standin",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Reprocessar Integração Conta > Standin - State"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "total_reprocessar_conta_standin",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Reprocessar Integração Conta > Standin - Total"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}

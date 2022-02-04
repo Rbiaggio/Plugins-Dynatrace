@@ -1,0 +1,117 @@
+{
+  "name": "custom.remote.python.notificacao_infracao_sla_ans_dict",
+  "version": "1.00",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.notificacao_infracao_sla_ans_dict",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_notificacao_infracao_sla",
+    "className": "NotificacaoInfracaoSLA",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Notificação Infração (SLA)"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "sla_consolidado_notificacao_infracao",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Notificação Infração (SLA)"
+      },
+      {
+        "key": "resultado_sla_consolidado_notificacao_infracao",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "ANS DICT",
+        "title": "Notificação Infração",
+        "series": [
+          {
+            "key": "sla_consolidado_notificacao_infracao",
+            "displayname": "Média em Dias",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "resultado_sla_consolidado_notificacao_infracao",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "ANS DICT",
+      "title": "Notificação Infração",
+      "series": [
+        {
+          "key": "sla_consolidado_notificacao_infracao",
+          "displayname": "Média em Minutos",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "resultado_sla_consolidado_notificacao_infracao",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Notificação Infração - Status"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "sla_consolidado_notificacao_infracao",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Notificação Infração - SLA"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP",
+      "alert_settings": [
+        {
+          "alert_id": "custom_sla_alert",
+          "event_type": "ERROR_EVENT",
+          "event_name": "SLA acima do permitido para a Notificação de Infração!!",
+          "description": "The {metricname} of {severity} is {alert_condition} the threshold of {threshold}",
+          "threshold": 60.0,
+          "alert_condition": "ABOVE",
+          "samples": 5,
+          "violating_samples": 1,
+          "dealerting_samples": 5
+        }
+      ]
+    }
+  ]
+}

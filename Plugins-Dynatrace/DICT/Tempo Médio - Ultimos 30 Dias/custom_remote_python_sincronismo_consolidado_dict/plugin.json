@@ -1,0 +1,59 @@
+{
+  "name": "custom.remote.python.sincronismo_sla_ans_dict",
+  "version": "1.00",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.sincronismo_sla_ans_dict",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_sincronismo_sla",
+    "className": "SincronismoSLA",
+    "install_requires": [
+      "mysql-connector",
+      "requests>=2.6.0"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "DICT - Sincronismo (SLA)"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "sincronismo_consolidado",
+        "unit": "Count",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Sincronismo (SLA)"
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "SLA",
+        "title": "Sincronismo",
+        "series": [
+          {
+            "key": "sincronismo_consolidado",
+            "displayname": "Minutos",
+            "seriestype": "area",
+            "color": "#74cff7"
+          }
+        ]
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "timeseries": {
+        "key": "sincronismo_consolidado",
+        "unit": "Count",
+        "displayname": "Sincronismo - SLA",
+        "aggregation": "MAX"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}

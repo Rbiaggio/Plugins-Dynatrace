@@ -1,0 +1,104 @@
+{
+  "name": "custom.remote.python.integracao_interna_cc",
+  "version": "1.55",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.integracao_interna_cc",
+  "technologies": [
+    "Python"
+  ],
+  "favicon": "https://jocumpr.com.br/wp-content/uploads/2021/08/logo-pix-icone-1024.png",
+  "source": {
+    "package": "custom_remote_python_integracao_interna_conta",
+    "className": "IntegracaoInternaCC",
+    "install_requires": [
+    "cx-Oracle",
+    "requests>=2.6.0"
+  ],
+    "activation": "Remote"
+  },
+  "configUI": {
+    "displayName": "Filas Oracle AQ - Integração Interna CC"
+  },
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "total_lancamentos_export_jsm",
+        "aggregation": "max",
+        "mergeaggregation": "sum",
+        "displayname": "Integração Interna CC - Total"
+      },
+      {
+        "key": "state_integracao_interna_cc",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "Filas Oracle AQ",
+        "title": "Integração Interna CC",
+        "series": [
+          {
+            "key": "total_lancamentos_export_jsm",
+            "displayname": "Total",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "state_integracao_interna_cc",
+            "displayname": " ",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "Filas Oracle AQ",
+      "title": "Integração Interna CC",
+      "series": [
+        {
+          "key": "total_lancamentos_export_jsm",
+          "displayname": "Total",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "state_integracao_interna_cc",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Integração Interna CC - State"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "total_lancamentos_export_jsm",
+        "unit": "Count",
+        "aggregation": "MAX",
+        "displayname": "Integração Interna CC - Total"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}
