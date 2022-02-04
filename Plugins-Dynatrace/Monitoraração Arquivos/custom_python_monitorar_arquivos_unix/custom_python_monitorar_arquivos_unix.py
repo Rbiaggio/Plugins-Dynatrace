@@ -11,12 +11,12 @@ currentYear = currentDate.year
 currentMonth = currentDate.month
 currentDay = currentDate.day
 br_timezone = timedelta(hours=-3)
-currentTime = datetime.now(timezone(br_timezone)).strftime('%H:%M')
+#currentTime = datetime.now(timezone(br_timezone)).strftime('%H:%M')
 print('current date', currentDate)
 print('current year', currentYear)
 print('current month', currentMonth)
 print('current day', currentDay)
-print('current time', currentTime)
+#print('current time', currentTime)
 
 def getFirstDayOfMonth(date) -> datetime:
     firstDay = datetime(date.year, date.month, 1)
@@ -27,8 +27,8 @@ def getLastDayOfMonth(date: date):
                        date.month % 12 + 1, 1) - timedelta(days=1)
     return lastDay
 
-def isBetweenTime(start: str, end: str) -> bool:
-    if (currentTime > start) and (currentTime < end):
+def isBetweenTime(start: str, end: str, time: str) -> bool:
+    if (time > start) and (time < end):
         return True
     else:
         return False
@@ -87,16 +87,26 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
         file = config['file']
         user = config['host_username']
         pwd = config['host_password']
-        beginning = config['start_time']
-        end = config['finish_time']
+        beginning = str(config['start_time'])
+        end = str(config['finish_time'])
         status_ok = "OK"
         status_notok = "Bad"
         var_cmd_output = 0
+        currentDate = date.today()
+        currentYear = currentDate.year
+        currentMonth = currentDate.month
+        currentDay = currentDate.day
         br_timezone = timedelta(hours=-3)
         currentTime = datetime.now(timezone(br_timezone)).strftime('%H:%M')
-        currentDay = currentDate.day
+        #print('current date', currentDate)
+        #print('current year', currentYear)
+        #print('current month', currentMonth)
+        #print('current day', currentDay)
+        #print('current time', currentTime)
+        #print("Beginning", beginning)
+        #print("End", end)
         if server == 'Arquivos Conductor (Baixa)' or server == 'Arquivos Conductor (Cad)' or server == 'Arquivos Conductor (Carga)' or server == 'Arquivos Conductor (Fin)' or server == 'Arquivos Conductor (Pag)':
-            if isBetweenTime(beginning, end) and isBetweenDays(currentDate):
+            if isBetweenTime(beginning, end, currentTime) and isBetweenDays(currentDate):
                 try:
                     client = paramiko.SSHClient()
                     client.set_missing_host_key_policy(
@@ -110,16 +120,18 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
                         state_return = status_notok
                         print("Status Arquivos Conductor", state_return)
                         print("Qtde Arquivos Conductor", var_cmd_output)
-                        print("Horário Arquivos Conductor", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Conductor", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     else:
                         state_return = status_ok
                         print("Status Arquivos Conductor", state_return)
                         print("Qtde Arquivos Conductor", var_cmd_output)
-                        print("Horário Arquivos Conductor", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Conductor", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     group = self.topology_builder.create_group(
                         "Monitoração Arquivos", "Monitoração Arquivos")
                     device = group.create_element(server, server)
@@ -147,16 +159,18 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
                         state_return = status_notok
                         print("Status Conductor CDT", state_return)
                         print("Qtde Arquivos Conductor CDT", var_cmd_output)
-                        print("Horário Arquivos Conductor CDT", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Conductor CDT", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     else:
                         state_return = status_ok
                         print("Status Conductor CDT", state_return)
                         print("Qtde Arquivos Conductor CDT", var_cmd_output)
-                        print("Horário Arquivos Conductor CDT", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Conductor CDT", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     group = self.topology_builder.create_group(
                         "Monitoração Arquivos", "Monitoração Arquivos")
                     device = group.create_element(server, server)
@@ -184,16 +198,18 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
                         state_return = status_notok
                         print("Status Arquivos SUST-FUNCAO", state_return)
                         print("Qtde Arquivos SUST-FUNCAO", var_cmd_output)
-                        print("Horário Arquivos SUST-FUNCAO", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos SUST-FUNCAO", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     else:
                         state_return = status_ok
                         print("Status Arquivos SUST-FUNCAO", state_return)
                         print("Qtde Arquivos SUST-FUNCAO", var_cmd_output)
-                        print("Horário Arquivos SUST-FUNCAO", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos SUST-FUNCAO", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     group = self.topology_builder.create_group(
                         "Monitoração Arquivos", "Monitoração Arquivos")
                     device = group.create_element(server, server)
@@ -221,16 +237,18 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
                         state_return = status_notok
                         print("Status Arquivos SUST-NPE", state_return)
                         print("Qtde Arquivos SUST-NPE", var_cmd_output)
-                        print("Horário Arquivos SUST-NPE", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos SUST-NPE", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     else:
                         state_return = status_ok
                         print("Status Arquivos SUST-NPE", state_return)
                         print("Qtde Arquivos SUST-NPE", var_cmd_output)
-                        print("Horário Arquivos SUST-NPE", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos SUST-NPE", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     group = self.topology_builder.create_group(
                         "Monitoração Arquivos", "Monitoração Arquivos")
                     device = group.create_element(server, server)
@@ -259,16 +277,18 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
                         state_return = status_notok
                         print("Status Arquivos Matera", state_return)
                         print("Qtde Arquivos Matera", var_cmd_output)
-                        print("Horário Arquivos Matera", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Matera", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     else:
                         state_return = status_ok
                         print("Status Arquivos Matera", state_return)
                         print("Qtde Arquivos Matera", var_cmd_output)
-                        print("Horário Arquivos Matera", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Matera", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     group = self.topology_builder.create_group(
                         "Monitoração Arquivos", "Monitoração Arquivos")
                     device = group.create_element(server, server)
@@ -282,7 +302,7 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
             else:
                 logger.info(f'Fora da janela de execução')
         if server == 'Registro Boleto (Conn)' or server == 'Registros Boletos (MV)' or server == 'Registros Boletos (CB)':
-            if isBetweenTime(beginning, end):
+            if isBetweenTime(beginning, end, currentTime):
                 try:
                     client = paramiko.SSHClient()
                     client.set_missing_host_key_policy(
@@ -296,16 +316,18 @@ class MonitorarArquivosUnix(RemoteBasePlugin):
                         state_return = status_notok
                         print("Status Boletos", state_return)
                         print("Qtde Arquivos Boletos", var_cmd_output)
-                        print("Horário Arquivos Boletos", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Boletos", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     else:
                         state_return = status_ok
                         print("Status Boletos", state_return)
                         print("Qtde Arquivos Boletos", var_cmd_output)
-                        print("Horário Arquivos Boletos", currentTime)
-                        print("CurrentDay", currentDay)
-                        print("CurrentDate", currentDate)
+                        #print("Horário Arquivos Boletos", currentTime)
+                        #print("CurrentDay", currentDay)
+                        #print("CurrentDate", currentDate)
+                        #print(isBetweenTime(beginning, end, currentTime))
                     group = self.topology_builder.create_group(
                         "Monitoração Arquivos", "Monitoração Arquivos")
                     device = group.create_element(server, server)
