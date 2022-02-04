@@ -1,0 +1,221 @@
+{
+  "name": "custom.remote.python.monitorar_arquivos_unix",
+  "version": "1.0.1",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "metricGroup": "tech.python.monitorar_arquivos_unix",
+  "technologies": [
+    "Python"
+  ],
+  "source": {
+    "package": "custom_python_monitorar_arquivos_unix",
+    "className": "MonitorarArquivosUnix",
+    "install_requires": [
+      "workadays",
+      "paramiko",
+      "pywinrm"
+    ],
+    "activation": "Remote"
+  },
+  "configUI": {"displayName": "Monitorar Arquivos - Unix","properties": [
+    {"key": "nome","displayName": "Device Name","displayOrder": 1,"displayHint": "Arquivos SPB"},
+      {
+        "key": "system_type",
+        "displayName": "Sistema Operacional",
+        "displayOrder": 2,
+        "displayHint": "Sistema Operacional"
+      },
+      {
+        "key": "host_ip",
+        "displayName": "IP Host",
+        "displayOrder": 3,
+        "displayHint": "xxx.xxx.xxx.xxx"
+      },
+      {
+        "key": "host_port",
+        "displayName": "Porta Comunicação",
+        "displayOrder": 4,
+        "displayHint": "22"
+      },
+      {
+        "key": "host_username",
+        "displayName": "Usuário",
+        "displayOrder": 5,
+        "displayHint": "Usuário"
+      },
+      {
+        "key": "host_password",
+        "displayName": "Senha",
+        "displayOrder": 6,
+        "displayHint": "Senha"
+      },
+      {
+        "key": "path_file",
+        "displayName": "Diretório do Arquivo",
+        "displayOrder": 7,
+        "displayHint": "/path/to/your/file"
+      },
+      {
+        "key": "file",
+        "displayName": "Mascará do Arquivo",
+        "displayOrder": 8,
+        "displayHint": "*_carga_in.txt"
+      },
+      {
+        "key": "start_time",
+        "displayName": "Horário Inicio da Execução",
+        "displayOrder": 9,
+        "displayHint": "HH:MM"
+      },
+      {
+        "key": "finish_time",
+        "displayName": "Horário Fim da Execução",
+        "displayOrder": 10,
+        "displayHint": "HH:MM"
+      },
+      {
+        "key": "frequency_1",
+        "displayName": "Frequência Execução",
+        "displayOrder": 11,
+        "displayHint": "Minutos"
+      }
+    ]
+  },
+  "properties": [
+    {
+      "key": "nome",
+      "type": "String"
+    },
+    {
+      "key": "system_type",
+      "type": "Dropdown",
+      "dropdownValues": [
+        "Windows",
+        "Unix"
+      ]
+    },
+    {
+      "key": "host_ip",
+      "type": "String"
+    },
+    {
+      "key": "host_port",
+      "type": "String"
+    },
+    {
+      "key": "host_username",
+      "type": "String"
+    },
+    {
+      "key": "host_password",
+      "type": "Password"
+    },
+    {
+      "key": "path_file",
+      "type": "String",
+      "default": "/path/to/your/file"
+    },
+    {
+      "key": "file",
+      "type": "String",
+      "default": "your file"
+    },
+    {
+      "key": "start_time",
+      "type": "String"
+    },
+    {
+      "key": "finish_time",
+      "type": "String"
+    },
+    {
+      "key": "frequency_1",
+      "type": "String"
+    }
+  ],
+  "ui": {
+    "keymetrics": [
+      {
+        "key": "var_cmd_output",
+        "aggregation": "sum",
+        "mergeaggregation": "Sum",
+        "displayname": "Arquivos - Unix"
+      },
+      {
+        "key": "state_return",
+        "displayname": "Status",
+        "statemetric": true
+      }
+    ],
+    "keycharts": [
+      {
+        "group": "Quantidade Arquivos",
+        "title": "Quantidade Total",
+        "series": [
+          {
+            "key": "var_cmd_output",
+            "aggregation": "sum",
+            "mergeaggregation": "Sum",
+            "displayname": "Arquivos - Unix",
+            "seriestype": "area",
+            "color": "#4d4dff"
+          }
+        ]
+      },
+      {
+        "group": "Status",
+        "title": "Status",
+        "series": [
+          {
+            "key": "state_return",
+            "displayname": "Status - Unix",
+            "seriestype": "bar",
+            "statecolors": [
+              "#00b33c",
+              "#ff3333"
+            ],
+            "statechart": true
+          }
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "group": "Quantidade Arquivos",
+      "title": "Quantidade Total",
+      "series": [
+        {
+          "key": "var_cmd_output",
+          "aggregation": "sum",
+          "mergeaggregation": "Sum",
+          "displayname": "Total Arquivos - Unix",
+          "seriestype": "area",
+          "color": "#4d4dff"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "statetimeseries": {
+        "key": "state_return",
+        "states": [
+          "OK",
+          "Bad"
+        ],
+        "displayname": "Status Arquivos - Unix"
+      },
+      "entity": "CUSTOM_DEVICE"
+    },
+    {
+      "timeseries": {
+        "key": "var_cmd_output",
+        "unit": "Count",
+        "aggregation": "Sum",
+        "displayname": "Total Arquivos - Unix"
+      },
+      "entity": "CUSTOM_DEVICE_GROUP"
+    }
+  ]
+}
